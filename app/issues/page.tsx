@@ -4,6 +4,7 @@ import IssusStatusBadge from "../components/IssusStatusBadge";
 import delay from "delay";
 import IssueToolbar from "./IssueToolbar";
 import Link from "../components/Link";
+import prisma from "@/prisma/client";
 
 const IssuesPage = async () => {
   const issues = await prisma?.issue.findMany();
