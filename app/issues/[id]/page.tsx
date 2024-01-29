@@ -1,7 +1,7 @@
 import IssusStatusBadge from "@/app/components/IssusStatusBadge";
 import { Card, Flex, Heading, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
-import React from "react";
+import ReactMarkdown from "react-markdown";
 
 const IssueDetailPage = async ({
   params: { id },
@@ -21,8 +21,8 @@ const IssueDetailPage = async ({
         <IssusStatusBadge status={issue.status} />
         <Text>{issue.createdAt.toDateString()}</Text>
       </Flex>
-      <Card>
-        <p>{issue.description}</p>
+      <Card className="prose" mt="4">
+        <ReactMarkdown>{issue.description}</ReactMarkdown>
       </Card>
     </div>
   );
