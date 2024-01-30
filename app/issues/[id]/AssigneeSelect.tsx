@@ -9,21 +9,12 @@ import ms from "ms";
 import toast, { Toaster } from "react-hot-toast";
 
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
-  const {
-    data: users,
-    error,
-    isLoading,
-  } = useQuery<User[]>({
-    queryKey: ["users"],
-    queryFn: () => axios.get("/api/users").then((res) => res.data),
-    staleTime: ms("1h"),
-    retry: 3,
-  });
+  const { data: users, error, isLoading } = useUsers();
 
   if (isLoading) return <Skeleton height="2rem" />;
   if (error) return null;
 
-  const setAssignee = (userId: string) => {
+  const assignIssue = (userId: string) => {
     axios
       .patch("/api/issues/" + issue.id, {
         assignedToUserId: userId === "#" ? null : userId,
@@ -36,7 +27,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   return (
     <>
       <Select.Root
-        onValueChange={setAssignee}
+        onValueChange={assignIssue}
         defaultValue={issue.assignedToUserId || "#"}
       >
         <Select.Trigger placeholder="Assign..." />
@@ -56,5 +47,13 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
     </>
   );
 };
+
+const useUsers = () =>
+  useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: () => axios.get("/api/users").then((res) => res.data),
+    staleTime: ms("1m"),
+    retry: 3,
+  });
 
 export default AssigneeSelect;
