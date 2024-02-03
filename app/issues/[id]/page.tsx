@@ -42,7 +42,7 @@ const IssueDetailsPage = async ({ params: { id } }: Props) => {
   );
 };
 
-export async function generateMetadat({ params: { id } }: Props) {
+export async function generateMetadata({ params: { id } }: Props) {
   const issue = await fetchUser(parseInt(id));
 
   return {
