@@ -1,12 +1,10 @@
-import prisma from "@/prisma/client";
-import { Flex, Table } from "@radix-ui/themes";
-import IssueToolbar from "./IssueToolbar";
-import { IssusStatusBadge, Link } from "../../components";
-import { Issue, Status } from "@prisma/client";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
 import Pagination from "@/app/components/Pagination";
-import IssueTable, { IssueQuery, columnNames } from "./IssueTable";
+import prisma from "@/prisma/client";
+import { Status } from "@prisma/client";
+import { Flex } from "@radix-ui/themes";
 import { Metadata } from "next";
+import IssueTable, { IssueQuery, columnNames } from "./IssueTable";
+import IssueToolbar from "./IssueToolbar";
 
 const IssuesPage = async ({ searchParams }: { searchParams: IssueQuery }) => {
   const status = Object.values(Status).includes(searchParams.status)
