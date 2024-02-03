@@ -1,9 +1,10 @@
 import { Avatar, Card, Flex, Heading, Table } from "@radix-ui/themes";
 import { IssusStatusBadge } from "./components";
 import Link from "next/link";
+import prisma  from "@/prisma/client";
 
 const LatestIssues = async () => {
-  const issues = await prisma?.issue.findMany({
+  const issues = await prisma.issue.findMany({
     orderBy: {
       createdAt: "desc",
     },
